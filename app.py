@@ -6,11 +6,11 @@ import pathlib
 import json
 
 st.set_page_config(page_title="RAG + Agents + Prompting + Fine-tuning (+ skills)", page_icon="🕸️", layout="wide")
-st.title("🕸️ RAG pipeline + agenti + prompting + fine-tuning + praktické skills")
+st.title("🕸️ RAG pipeline + agenti + prompting + fine-tuning aj.")
 
 # --- Boční panel ---
 st.sidebar.image("qest-logo-new.png", use_container_width=True)
-physics = st.sidebar.checkbox("Fyzika (táhni uzly myší)", True)
+physics = st.sidebar.checkbox("Fyzika (táhni uzly myší)", False)
 st.sidebar.caption("Zapni/vypni, jestli mají uzly po puštění „dojíždět“.")
 
 # --- Uzly ---
@@ -184,4 +184,3 @@ with open(html_path, "r", encoding="utf-8") as f:
     html = f.read()
 
 st.components.v1.html(html, height=920, scrolling=False)
-st.caption("💡 Nové uzly: Prompt templates, Sampling, Guardrails, Human-in-the-loop, LangSmith, Model routing, Caching.")
