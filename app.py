@@ -10,7 +10,7 @@ st.title("🕸️ RAG pipeline + agenti + prompting + fine-tuning aj.")
 
 # --- Boční panel ---
 st.sidebar.image("qest-logo-new.png", use_container_width=True)
-physics = st.sidebar.checkbox("Fyzika (táhni uzly myší)", False)
+physics = st.sidebar.checkbox("Fyzika (táhni uzly myší)", True)
 st.sidebar.caption("Zapni/vypni, jestli mají uzly po puštění „dojíždět“.")
 
 # --- Uzly ---
@@ -92,14 +92,14 @@ edges = [
 
 # --- Tooltipy ---
 titles = {
-    "Chunking": "Dělení dokumentů na pasáže pro lepší retrieval.",
-    "Embeddings": "Vektorové reprezentace textu pro podobnostní vyhledávání.",
+    "Chunking": "Dělení dokumentů na části pro lepší retrieval.",
+    "Embeddings": "Vektorová reprezentace textu pro podobnostní vyhledávání.",
     "Indexing": "Index nad embeddingy (např. HNSW/IVF).",
     "VectorDB": "Úložiště vektorů + nearest-neighbor search.",
     "Ranking": "Re-ranking pasáží (např. cross-encoder).",
     "RAG": "Retrieval-Augmented Generation: dohledá kontext a předá ho LLM.",
-    "LLM": "Velký jazykový model – generace odpovědí.",
-    "OpenAI": "Příklad poskytovatele LLM/API.",
+    "LLM": "Velký jazykový model – generování odpovědí.",
+    "OpenAI": "Příklad poskytovatele LLM/API jako např. Gemini od Google, Claude od Anthropicu aj.",
     "LangChain": "Framework pro chains/agents, paměť a nástroje.",
     "LangGraph": "Stavový graf/orchestrátor: řízení toku, větvení, retry.",
     "Planner": "Plánuje kroky (plan-and-execute).",
@@ -111,7 +111,7 @@ titles = {
     "Prompt engineering": "Tvorba promptů a šablon pro řízení LLM.",
     "Chain-of-Thought": "Technika, která vede k postupnému uvažování.",
     "Zero-Shot": "Bez příkladů – model generuje rovnou.",
-    "Few-Shot": "Pár příkladů v promptu pro lepší přesnost.",
+    "Few-Shot": "Pár příkladů vstupů a výstupů v promptu pro lepší přesnost.",
     # Nové
     "Prompt templates": "Šablony promptů (Jinja/YAML/parametrizace).",
     "Sampling (temperature/top-p)": "Parametry kreativity a rozmanitosti.",
@@ -124,20 +124,20 @@ titles = {
 
 # --- Barvy (skupiny) ---
 palette = {
-    # RAG pipeline
+
     "Chunking": "#e6e6ff", "Embeddings": "#e6e6ff", "Indexing": "#e6e6ff",
     "VectorDB": "#e6e6ff", "Ranking": "#e6e6ff", "RAG": "#b3ffb3",
-    # LLM/Provider
+ 
     "LLM": "#ffd699", "OpenAI": "#ffd699",
-    # Framework / orchestrátor
+
     "LangChain": "#99c2ff", "LangGraph": "#99c2ff",
-    # Agenti + paměť + nástroje
+
     "Planner": "#ffe6f2", "Executor": "#ffe6f2", "Evaluator": "#ffe6f2",
     "Memory": "#e8d1ff", "ToolUse": "#d9d9d9",
-    # Fine-tuning & Prompting
+
     "Fine-tuning": "#fff0b3", "Prompt engineering": "#fff0b3",
     "Chain-of-Thought": "#fff0b3", "Zero-Shot": "#fff0b3", "Few-Shot": "#fff0b3",
-    # Nové skills
+
     "Prompt templates": "#fff0b3",
     "Sampling (temperature/top-p)": "#fff0b3",
     "Guardrails": "#ffdfdf",
@@ -150,7 +150,7 @@ palette = {
 # --- Postav graf (směrovaný) ---
 G = nx.DiGraph()
 for n in nodes:
-    G.add_node(n, label=n, title=titles.get(n, f"Uzol {n}"))
+    G.add_node(n, label=n, title=titles.get(n, f"Node {n}"))
 for src, dst in edges:
     G.add_edge(src, dst)
 
@@ -164,12 +164,12 @@ for node in net.nodes:
     name = node["label"]
     node["shape"] = "dot"
     node["size"] = 22
-    node["borderWidth"] = 2
+    node["borderWidth"] = 1
     node["color"] = {"border": "#222", "background": palette.get(name, "#d9d9d9")}
 
 # --- Nastavení (čistý JSON) ---
 options = {
-    "physics": {"enabled": bool(physics), "stabilization": {"iterations": 240}},
+    "physics": {"enabled": bool(physics), "stabilization": {"iterations": 340}},
     "nodes": {"font": {"size": 18}},
     "edges": {"smooth": False, "arrows": {"to": {"enabled": True, "scaleFactor": 0.7}}},
     "interaction": {"hover": True}
